@@ -1,9 +1,47 @@
 let playerScore = 0;
 let computerScore = 0;
+let round = 1;
 const gameOptions = ["Rock", "Paper", "Scissor"];
 
 function computerPlay() {
   return gameOptions[Math.floor(Math.random() * gameOptions.length)];
+}
+
+function game() {
+  for (let i = 0; i < 5; i++) {
+    let computerSelection = computerPlay();
+    let playerSelection = prompt(
+      "Round " +
+        round++ +
+        ': Please insert your opition for the "Rock, Paper, Scissor" game',
+      "Rock, paper or scissor."
+    )
+      .replaceAll(" ", "")
+      .toLowerCase();
+    if (playerSelection === "") {
+      i--;
+      alert("Please insert a valid option!");
+      round--;
+    } else if (
+      playerSelection == "rock" ||
+      playerSelection == "paper" ||
+      playerSelection == "scissor"
+    ) {
+      checkWinner(playerSelection, computerSelection);
+    } else {
+      i--;
+      alert("Please insert a valid option!");
+      round--;
+    }
+  }
+  if (playerScore > computerScore) {
+    alert(`You won! Final result: ${playerScore} - ${computerScore}`);
+  } else {
+    if (playerScore === computerScore) {
+      alert(`Draw! Final result: ${computerScore} - ${playerScore}`);
+    }
+    alert(`Computer won! Final result: ${computerScore} - ${playerScore}`);
+  }
 }
 
 function checkWinner(playerSelection, computerSelection) {
@@ -35,29 +73,6 @@ function checkWinner(playerSelection, computerSelection) {
       computerScore++;
       alert("Computer Won! " + computerSelection + " beats Paper");
     }
-  }
-}
-
-function playRound() {
-  let computerSelection = computerPlay();
-  let playerSelection = prompt(
-    'Please insert your opition for the "Rock, Paper, Scissor" game',
-    "Rock, paper or scissor."
-  ).toLowerCase();
-  checkWinner(playerSelection, computerSelection);
-}
-
-function game() {
-  for (let i = 0; i < 5; i++) {
-    playRound();
-  }
-  if (playerScore > computerScore) {
-    alert(`You won! Final result: ${playerScore} - ${computerScore}`);
-  } else {
-    if (playerScore === computerScore) {
-      alert(`Draw! Final result: ${computerScore} - ${playerScore}`);
-    }
-    alert(`Computer won! Final result: ${computerScore} - ${playerScore}`);
   }
 }
 
